@@ -1,0 +1,35 @@
+PARTE 5 - JAVA EE / JAKARTA EE CONCEITUAL
+
+Q1 - Arquitetura em 3 Camadas
+
+A arquitetura em três camadas separa a aplicação em apresentação, lógica de negócio e dados. A camada de apresentação mostra a interface e coleta as ações do usuário; neste projeto, portal-bootstrap.html e estilo.css pertencem a ela. A camada de lógica de negócio processa regras, valida dados e coordena o fluxo; processar.jsp exerce esse papel no exercício, embora uma aplicação real normalmente encaminhasse essa responsabilidade a um Servlet ou a uma classe de serviço. A camada de dados armazena e recupera informações persistentes; um banco MySQL com os alunos cadastrados ficaria nessa camada, acessado por uma classe DAO ou repositório. A separação diminui o acoplamento e permite alterar a interface ou o banco sem reescrever toda a aplicação.
+
+Q2 - Servlet vs JSP
+
+Um Servlet é uma classe Java executada pelo contêiner para receber requisições, validar entradas, executar regras e decidir qual resposta será produzida. Uma JSP é uma página voltada à geração da interface HTML; o servidor a traduz e compila para um Servlet antes de executá-la. Eu usaria o Servlet como controlador e a JSP como visão. Em uma aplicação real, processar.jsp seria melhor implementado como Servlet porque a validação, o acesso à sessão e uma futura gravação no banco ficariam em código Java testável, enquanto a JSP apenas exibiria os dados enviados pelo controlador. Essa separação segue o padrão MVC, reduz scriptlets misturados ao HTML e facilita manutenção, testes e reaproveitamento.
+
+Q3 - Ciclo de Vida da Requisição HTTP
+
+1. O usuário preenche o formulário e clica em "Cadastrar aluno".
+2. O navegador valida os campos HTML e monta uma requisição HTTP POST para processar.jsp, enviando nome, e-mail e turma no corpo da requisição.
+3. A rede entrega a requisição ao Tomcat na porta e no contexto configurados para a aplicação.
+4. O Tomcat localiza processar.jsp. Se necessário, traduz a JSP para uma classe Servlet, compila essa classe e cria ou reutiliza sua instância.
+5. O contêiner cria os objetos da requisição e da resposta, associa a sessão existente ou cria uma nova e executa o método de serviço da Servlet gerada.
+6. O código JSP usa request.getParameter() para ler os dados, valida os valores, sanitiza o texto e grava o último nome no objeto session.
+7. As expressões JSP geram o HTML de sucesso ou de erro por meio do objeto out, que escreve na resposta.
+8. O Tomcat finaliza a resposta HTTP com status, cabeçalhos e corpo HTML e a envia ao navegador.
+9. O navegador interpreta o HTML e o CSS recebido e apresenta a confirmação ao usuário.
+
+Q4 - Jakarta EE vs Java EE
+
+Três consequências práticas da migração de Java EE 8 para Jakarta EE 9 ou posterior são:
+
+1. O namespace das APIs mudou de javax.* para jakarta.*. Por exemplo, javax.servlet.http.HttpServlet passou a jakarta.servlet.http.HttpServlet, exigindo alteração de imports, descritores e outras referências no código.
+2. As dependências e a plataforma do projeto precisam de versões compatíveis com Jakarta. Um projeto Maven passa a usar artefatos como jakarta.servlet-api, e bibliotecas antigas que dependem de javax podem precisar de atualização ou substituição.
+3. O servidor de aplicação também precisa suportar a nova plataforma. Uma aplicação Jakarta EE 9 não deve ser implantada, sem adaptação, em um servidor limitado a Java EE 8; é necessário usar uma versão compatível, como Tomcat 10+ para a Servlet API Jakarta, além de revisar configurações e testar novamente a implantação.
+
+Q5 - Segurança e Prevenção de XSS
+
+XSS ocorre quando uma aplicação inclui uma entrada não confiável em uma página sem codificá-la para o contexto HTML. Neste formulário, um atacante poderia enviar no campo nome um trecho como <script>alert('XSS')</script>. Se a JSP imprimisse esse valor diretamente com <%= nome %>, o navegador poderia interpretar a entrada como código da página e executar JavaScript com acesso ao contexto do usuário.
+
+A correção é aplicar codificação de saída antes de inserir o dado no HTML. O processar.jsp entregue usa o método escaparHtml(), que substitui &, <, >, aspas duplas e aspas simples por entidades HTML, e exibe somente nomeSeguro e emailSeguro. Em uma aplicação real, também seria possível usar uma biblioteca consolidada, por exemplo StringEscapeUtils.escapeHtml4(nome), ou a tag <c:out value="${param.nome}"/> da JSTL. A validação de formato é importante, mas não substitui a codificação de saída; cada valor deve ser codificado de acordo com o contexto em que será inserido.

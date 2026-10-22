@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Versão responsiva em Bootstrap 5 do Portal de Turmas da UNICEPLAC.">
+    <title>Portal de Turmas - Bootstrap</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .bg-uniceplac { background-color: #007441 !important; }
+        .text-laranja { color: #FD7708 !important; }
+        .btn-laranja { background-color: #FD7708; color: #fff; }
+        .btn-laranja:hover, .btn-laranja:focus { background-color: #D95F00; color: #fff; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-uniceplac" data-bs-theme="dark" aria-label="Navegação principal">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-laranja" href="#">Portal UNICEPLAC</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
+                    aria-controls="navMenu" aria-expanded="false" aria-label="Abrir menu de navegação">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#turmas">Turmas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#cadastrar">Cadastrar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row align-items-center gy-3">
+                <div class="col-lg-8">
+                    <h1 class="display-5 fw-bold mb-2">Turmas do 4º período</h1>
+                    <p class="lead mb-0">Consulte disciplinas e faça seu cadastro no portal acadêmico.</p>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <span class="badge text-bg-light fs-6">Engenharia de Software - 2026/2</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="turmas" class="py-5" aria-labelledby="titulo-turmas-bootstrap">
+            <div class="container">
+                <h2 id="titulo-turmas-bootstrap" class="mb-4 fw-bold">Turmas disponíveis</h2>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <article class="card h-100 border-0 shadow-sm">
+                            <div class="card-header bg-uniceplac text-white fw-bold">Programação para Web</div>
+                            <div class="card-body">
+                                <p class="card-text"><span class="badge text-bg-secondary">ENSOF4AN1</span> - 60h - Turma A</p>
+                                <p class="text-muted small mb-0">Prof. Reinaldo Vieira</p>
+                            </div>
+                            <div class="card-footer bg-white border-0 pb-3">
+                                <a href="#cadastrar" class="btn btn-sm bg-uniceplac text-white">Cadastrar</a>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="col-md-4">
+                        <article class="card h-100 border-0 shadow-sm">
+                            <div class="card-header bg-uniceplac text-white fw-bold">Banco de Dados</div>
+                            <div class="card-body">
+                                <p class="card-text"><span class="badge text-bg-secondary">ENSOF4BD1</span> - 80h - Turma A</p>
+                                <p class="text-muted small mb-0">Prof. Carlos Souza</p>
+                            </div>
+                            <div class="card-footer bg-white border-0 pb-3">
+                                <a href="#cadastrar" class="btn btn-sm bg-uniceplac text-white">Cadastrar</a>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="col-md-4">
+                        <article class="card h-100 border-0 shadow-sm">
+                            <div class="card-header bg-uniceplac text-white fw-bold">Engenharia de Software</div>
+                            <div class="card-body">
+                                <p class="card-text"><span class="badge text-bg-secondary">ENSOF4ES1</span> - 80h - Turma A</p>
+                                <p class="text-muted small mb-0">Prof. Ana Lima</p>
+                            </div>
+                            <div class="card-footer bg-white border-0 pb-3">
+                                <a href="#cadastrar" class="btn btn-sm bg-uniceplac text-white">Cadastrar</a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cadastrar" class="py-5 bg-light" aria-labelledby="titulo-cadastro-bootstrap">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="card shadow border-0">
+                            <div class="card-header bg-uniceplac text-white py-3">
+                                <h2 id="titulo-cadastro-bootstrap" class="h4 mb-0">Cadastrar aluno</h2>
+                            </div>
+                            <div class="card-body p-4">
+                                <form action="processar.jsp" method="post" class="needs-validation" novalidate>
+                                    <div class="mb-3">
+                                        <label class="form-label fw-semibold" for="nome">Nome completo</label>
+                                        <input type="text" class="form-control" id="nome" name="nome" autocomplete="name" required>
+                                        <div class="invalid-feedback">Informe o nome completo.</div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label fw-semibold" for="email">E-mail</label>
+                                        <input type="email" class="form-control" id="email" name="email" autocomplete="email" required>
+                                        <div class="invalid-feedback">Informe um e-mail válido.</div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label class="form-label fw-semibold" for="turma">Turma</label>
+                                        <select class="form-select" id="turma" name="turma" required>
+                                            <option value="">Selecione uma turma</option>
+                                            <option value="web">Programação para Web</option>
+                                            <option value="bd">Banco de Dados</option>
+                                            <option value="es">Engenharia de Software</option>
+                                        </select>
+                                        <div class="invalid-feedback">Selecione uma turma.</div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-laranja w-100 fw-bold">Cadastrar aluno</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contato" class="bg-dark text-white text-center py-4">
+        <p class="mb-1">&copy; 2026 UNICEPLAC - Todos os direitos reservados</p>
+        <p class="mb-0 small">Programação para Web - Prof. Reinaldo Vieira</p>
+    </footer>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="toastCadastro" class="toast align-items-center text-bg-success border-0" role="status" aria-live="polite" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">Dados validados. Enviando cadastro...</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Fechar"></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.querySelectorAll(".needs-validation").forEach(function (formulario) {
+            formulario.addEventListener("submit", function (evento) {
+                if (!formulario.checkValidity()) {
+                    evento.preventDefault();
+                    evento.stopPropagation();
+                    formulario.classList.add("was-validated");
+                    return;
+                }
+
+                // Exibe a confirmação solicitada antes de encaminhar os dados ao JSP.
+                evento.preventDefault();
+                formulario.classList.add("was-validated");
+                const toast = new bootstrap.Toast(document.getElementById("toastCadastro"), { delay: 900 });
+                toast.show();
+                window.setTimeout(function () {
+                    formulario.submit();
+                }, 950);
+            });
+        });
+    </script>
+</body>
+</html>
